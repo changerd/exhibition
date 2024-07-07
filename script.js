@@ -1,12 +1,15 @@
 $(document).ready(function() {
     const config = {
-        onHost: false,
+        onHost: true,
         repoName: 'exhibition'
     }
 
     if(config.onHost) {
         $('a').attr('href', function(i, val) {
-            return config.repoName + val;
-        })
+            if(val.includes(config.repoName))
+                return val;
+            else
+                return config.repoName + val;
+        });
     }
 })
