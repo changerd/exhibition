@@ -1,6 +1,6 @@
 $(document).ready(function() {
     const config = {
-        onHost: true,
+        onHost: false,
         repoName: 'exhibition'
     }
 
