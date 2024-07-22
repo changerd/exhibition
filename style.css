@@ -32,3 +32,19 @@ a:focus {
     color: #814e99; 
     outline: none;
 }
+
+pre {
+    max-width: 100%;
+}
+
+@media (max-width: 600px) {
+    pre {
+        font-size: 8px;
+    }
+}
+
+@media (max-width: 400px) {
+    pre {
+        font-size: 6px;
+    }
+}
