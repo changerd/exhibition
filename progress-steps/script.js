@@ -1,47 +1,30 @@
 $(document).ready(function() {
-    const circlesCount = $('.circle').length;
+    const circles = $('.circle');
+    const nextBtn = $('#next');
+    const prevBtn = $('#prev');
+    const progress = $('#progress');
+
+    const circlesCount = circles.length;
     let currentActive = 1;
 
-    $('#next').on('click', () => {
-        currentActive++;
-
-        if (currentActive > $('.circle').length) {
-            currentActive = $('.circle').length;
-        }
-
+    nextBtn.on('click', () => {
+        currentActive = Math.min(currentActive + 1, circlesCount);
         update();
-    })
+    });
 
-    $('#prev').on('click', () => {
-        currentActive--;
-
-        if (currentActive < 1) {
-            currentActive = 1;
-        }
-
+    prevBtn.on('click', () => {
+        currentActive = Math.max(currentActive - 1, 1);
         update();
-    })
+    });
     
     function update() {
-        $('.circle').each((ind, circle) => {
-            if(ind < currentActive) {
-                $(circle).addClass('active');
-            } else {
-                $(circle).removeClass('active');
-            }            
-        });
+       circles.removeClass('active').slice(0, currentActive).addClass('active');
 
-        const activeCircles = $('.active').length;        
+        const activeCircles = $('.active').length;
+        const progressWidth = ((activeCircles - 1) / (circlesCount - 1)) * 100 + '%';
+        progress.css('width', progressWidth);
 
-        $('#progress').css('width', (((activeCircles - 1) / (circlesCount - 1)) * 100) + '%');
-
-        if(currentActive === 1) {
-            $('#prev').prop('disabled', true);
-        } else if(currentActive === circlesCount) {
-            $('#next').prop('disabled', true); 
-        } else {
-            $('#next').prop('disabled', false);
-            $('#prev').prop('disabled', false);
-        }
+        prevBtn.prop('disabled', currentActive === 1);
+        nextBtn.prop('disabled', currentActive === circlesCount);
     }
-})
+});
